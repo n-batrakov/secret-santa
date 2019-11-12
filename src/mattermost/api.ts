@@ -1,7 +1,7 @@
 import { OutgoingMessageBase } from './types'
 import { ajax } from 'rxjs/ajax'
 import { mergeMap } from 'rxjs/operators'
-import { of, throwError } from 'rxjs'
+import { of, throwError, Observable } from 'rxjs'
 
 
 export type SendMessageRequest = OutgoingMessageBase & {
@@ -12,7 +12,7 @@ export type SendMessageRequest = OutgoingMessageBase & {
     props?: any,
 }
 
-export function sendMessage(request: SendMessageRequest, options: { mattermostBotUrl: string }) {
+export function sendMessage(request: SendMessageRequest, options: { mattermostBotUrl: string }): Observable<string> {
     const response$ = ajax({
         url: options.mattermostBotUrl,
         method: 'POST',
