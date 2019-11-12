@@ -7,7 +7,6 @@ FROM node:alpine AS install
 FROM node:alpine AS build
     WORKDIR /build
     COPY --from=install /build/ .
-    RUN ls
     COPY . .
     RUN npm run build
 
