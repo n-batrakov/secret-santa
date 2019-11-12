@@ -3,7 +3,7 @@ import { mergeMap, toArray, mapTo, catchError } from 'rxjs/operators'
 import { sendMessage } from '../../mattermost/api'
 import { santaBot } from '../settings'
 import { from, of } from 'rxjs'
-import { randomPairs } from '../../utils/ranomPairs'
+import { randomPairs } from '../../utils/randomPairs'
 import { SlashCommandMiddleware } from '../types'
 import { MattermostSlashCommandResponse } from '../../mattermost/types'
 import { AppConfig } from '../../config'
@@ -30,20 +30,21 @@ export const assignPairs = (config: AppConfig): SlashCommandMiddleware => (reque
 }
 
 function santasEqual(a: SecretSanta, b: SecretSanta) {
-    return a.username === b.username
+    //return a.username === b.username
+    return false
 }
 
 function sendSantaMessage(target: SecretSanta, receiver: SecretSanta, config: AppConfig) {
     const preferences = receiver.preferences.length === 0
     ? ''
     : `
-По нашим данным, ему нравится:
-* ${receiver.preferences.join('\n*')}
+Вот несколько идей для подарка:
+* ${receiver.preferences.join('\n* ')}
 `
     const message = {
         ...santaBot,
         channel: `@${target.username}`,
-        text: `### Никому не говори :zipper_mouth_face:
+        text: `### Никому не говори
 
 
 Ты стал тайными сантой для @${receiver.username}.
