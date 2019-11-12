@@ -1,0 +1,18 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint-config-airbnb"
+    ],
+    "rules": {
+        "semicolon": [true, "never"],
+        "ter-indent": false,
+        "import-name": false,
+        "eofline": false,
+        "prefer-array-literal": false,
+        "no-else-after-return": false,
+        "no-increment-decrement": false,
+        "max-line-length": false,
+        "variable-name": [true, "ban-keywords", "check-format", "allow-pascal-case"],
+        "no-consecutive-blank-lines": false
+    }
+}
