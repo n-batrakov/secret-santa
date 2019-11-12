@@ -3,8 +3,10 @@ import { createServer } from '@marblejs/core'
 import { createHttpListener } from './bootstrap'
 import { polyfill } from './pollyfills'
 import { AppConfig } from './config'
+import fs from 'fs'
 
 polyfill(global)
+if (!fs.existsSync('./data')) fs.mkdirSync('./data')
 
 const cli = new commander.Command()
 
