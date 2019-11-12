@@ -9,19 +9,21 @@ import { AppConfig } from '../../config'
 const inviteText = `
 ### Хочешь стать секретным сантой?
 
-Порадуй своих коллег подарками и порадуйся подарку коллеги сам!
+Порадуй своих коллег подарками!
 
-Для этого в любой канал Mattermost отправь сообщение \`/santa <ваши интересы через запятую>\` или просто \`/santa\`, если не хочешь давать подсказок.
-
-Не волнуйся, сообщение увидишь только ты :slightly_smiling_face:
+Для этого в ~itexpert_arh (или любой другой канал Mattermost) отправь сообщение \`/santa play <ваши интересы через запятую>\` или просто \`/santa play\`, если не хочешь давать подсказок.
 
 Например,
 
 \`\`\`
-/santa сладости, кофе, носки
+/santa play сладости, кофе, носки
 \`\`\`
 
-В определенную дату будет проведена жеребьевка и твой получатель будет указан в секретном сообщении.
+Не волнуйся, сообщение увидишь только ты, а твои пожелания только секретный санта :slightly_smiling_face:
+
+До конца ноября будет проведена жеребьевка и твой получатель будет указан в секретном сообщении.
+
+Вручение подарков будет проводится в конце декабря.
 `
 
 export const sendSantaInvite = (config: AppConfig): SlashCommandMiddleware => (request, next) => {
@@ -32,7 +34,7 @@ export const sendSantaInvite = (config: AppConfig): SlashCommandMiddleware => (r
     const message = {
         ...santaBot,
         text: inviteText,
-        channel: '@n.batrakov',
+        channel: request.channel,
     }
 
     return sendMessage(message, config).pipe(
