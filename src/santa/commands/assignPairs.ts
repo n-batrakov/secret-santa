@@ -30,8 +30,7 @@ export const assignPairs = (config: AppConfig): SlashCommandMiddleware => (reque
 }
 
 function santasEqual(a: SecretSanta, b: SecretSanta) {
-    //return a.username === b.username
-    return false
+    return a.username === b.username
 }
 
 function sendSantaMessage(target: SecretSanta, receiver: SecretSanta, config: AppConfig) {
