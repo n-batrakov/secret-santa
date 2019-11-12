@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run build && node ./dist/index.js run",
     "test": "jest",
-    "build": "tsc",
+    "build": "tsc --build tsconfig.json",
     "lint": "tslint --project ."
   },
   "author": "",
