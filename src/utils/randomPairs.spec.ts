@@ -1,4 +1,4 @@
-import { randomPairs } from './ranomPairs'
+import { randomPairs } from './randomPairs'
 
 const range = (n: number) => new Array(n).fill(undefined).map((_, i) => i)
 
