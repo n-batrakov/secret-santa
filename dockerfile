@@ -16,4 +16,4 @@ FROM node:alpine
     WORKDIR /app
     COPY --from=build /build/dist .
     COPY --from=build /build/node_modules ./node_modules
-    ENTRYPOINT ["node", "index.js", "--port", "80"]
+    ENTRYPOINT ["node", "index.js", "run", "--port", "80"]

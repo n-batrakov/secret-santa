@@ -1,0 +1,8 @@
+version: '3'
+services:
+  santa:
+    build: .
+    ports:
+      - 5959:80
+    environment:
+      - BOT_URL=
