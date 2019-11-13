@@ -1,5 +1,5 @@
 import { getSantaStore, SecretSanta } from '../store'
-import { mergeMap, toArray, mapTo, catchError } from 'rxjs/operators'
+import { mergeMap, toArray, mapTo, catchError, map } from 'rxjs/operators'
 import { sendMessage } from '../../mattermost/api'
 import { santaBot } from '../settings'
 import { from, of } from 'rxjs'
@@ -7,6 +7,7 @@ import { randomPairs } from '../../utils/randomPairs'
 import { SlashCommandMiddleware } from '../types'
 import { MattermostSlashCommandResponse } from '../../mattermost/types'
 import { AppConfig } from '../../config'
+import { shuffle } from '../../utils/shuffle'
 
 export const assignPairs = (config: AppConfig): SlashCommandMiddleware => (request, next) => {
     if (request.command !== 'finish') {
@@ -15,6 +16,7 @@ export const assignPairs = (config: AppConfig): SlashCommandMiddleware => (reque
 
     return getSantaStore()
     .getSantas().pipe(
+        map(x => shuffle(x)),
         mergeMap(santas => from(randomPairs(santas, { equalityComparer: santasEqual }))),
         mergeMap(([a, b]) => sendSantaMessage(a, b, config)),
         toArray(),
