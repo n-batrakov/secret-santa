@@ -1,4 +1,6 @@
 import seedrandom from 'seedrandom'
+import { randomInt } from './randomInt'
+import { pairwise } from './pairwise'
 
 export type RandomPairsOptions<T> = {
     seed?: string,
@@ -13,7 +15,7 @@ export function randomPairs<T>(source: T[], options?: RandomPairsOptions<T>): Ar
     const pairs = new Array(source.length)
     const rnd = seedrandom(opts.seed)
 
-    const offset = nextInt(rnd, 0, source.length - 1) + 1
+    const offset = randomInt(rnd, 0, source.length - 1) + 1
 
     for (let i = 0; i < pairs.length; i++) {
         const idx = (i  + offset) % source.length
@@ -26,27 +28,6 @@ export function randomPairs<T>(source: T[], options?: RandomPairsOptions<T>): Ar
     } else {
         throw new Error('Self-paired elements found.')
     }
-}
-
-
-function pairwise<T>(a: T[], b: T[]) {
-    const length = a.length > b.length ? a.length : b.length
-    const result = new Array(length)
-
-    for (let i = 0; i < length; i++) {
-        result[i] = [a[i], b[i]]
-    }
-
-    return result
-}
-
-function nextInt(rnd: () => number, from: number, to: number) {
-    const n = rnd()
-    return Math.floor(scale(n, 0, 1, from, to))
-}
-
-function scale(x: number, x0: number, x1: number, y0: number, y1: number) {
-    return y0 + (y1 - y0) * (x - x0) / (x1 - x0)
 }
 
 function validatePairs<T>(pairs: Array<[T, T]>, eq: (a: T, b: T) => boolean) {
